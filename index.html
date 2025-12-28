@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dongtube - Sewa Bot WhatsApp Premium</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #0a0a0a;
+            color: #fff;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .navbar {
+            background: rgba(20, 20, 20, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .navbar-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 3rem 1rem;
+        }
+
+        .hero h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 800;
+            margin-bottom: 1rem;
+            letter-spacing: -1px;
+        }
+
+        .hero p {
+            font-size: clamp(1rem, 2.5vw, 1.25rem);
+            color: #aaa;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+
+        .product-showcase {
+            max-width: 1000px;
+            margin: 3rem auto;
+            background: rgba(20, 20, 20, 0.6);
+            border-radius: 16px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-showcase::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #667eea, #764ba2, #667eea);
+            border-radius: 16px;
+            z-index: -1;
+            opacity: 0;
+            animation: glow 3s ease-in-out infinite;
+        }
+
+        @keyframes glow {
+            0%, 100% {
+                opacity: 0.3;
+                filter: blur(10px);
+            }
+            50% {
+                opacity: 0.6;
+                filter: blur(15px);
+            }
+        }
+
+        .product-image {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            display: block;
+            position: relative;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 12px;
+            display: block;
+            box-shadow: 0 0 30px rgba(102, 126, 234, 0.3);
+        }
+
+        .snowflake {
+            position: fixed;
+            top: -10px;
+            z-index: 9999;
+            user-select: none;
+            cursor: default;
+            animation: fall linear infinite;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1em;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0.3;
+            }
+        }
+
+        .glow-line {
+            position: fixed;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #667eea, transparent);
+            box-shadow: 0 0 10px #667eea, 0 0 20px #667eea;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .glow-line-1 {
+            top: 20%;
+            left: -100%;
+            width: 200px;
+            animation: moveRight 8s linear infinite;
+        }
+
+        .glow-line-2 {
+            top: 60%;
+            right: -100%;
+            width: 150px;
+            animation: moveLeft 10s linear infinite;
+        }
+
+        .glow-line-3 {
+            top: 40%;
+            left: -100%;
+            width: 180px;
+            animation: moveRight 12s linear infinite;
+            animation-delay: 3s;
+        }
+
+        @keyframes moveRight {
+            0% {
+                left: -100%;
+            }
+            100% {
+                left: 100%;
+            }
+        }
+
+        @keyframes moveLeft {
+            0% {
+                right: -100%;
+            }
+            100% {
+                right: 100%;
+            }
+        }
+
+        .section-title {
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            font-weight: 700;
+            margin: 3rem 0 1.5rem;
+            text-align: center;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+            max-width: 1000px;
+            margin: 0 auto 3rem;
+        }
+
+        .price-card {
+            background: rgba(20, 20, 20, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 2rem 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .price-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .price-card:hover {
+            border-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-5px);
+        }
+
+        .price-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .price-card.featured {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+            border: 1px solid rgba(102, 126, 234, 0.3);
+        }
+
+        .price-card.featured::before {
+            transform: scaleX(1);
+        }
+
+        .duration {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #ccc;
+        }
+
+        .price {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin: 1rem 0;
+            color: #fff;
+        }
+
+        .btn {
+            display: inline-block;
+            background: #fff;
+            color: #000;
+            padding: 0.75rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .btn:hover {
+            background: #e0e0e0;
+            transform: scale(1.02);
+        }
+
+        .info-card {
+            background: rgba(20, 20, 20, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 2rem auto;
+            max-width: 900px;
+        }
+
+        .info-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .info-card p {
+            color: #aaa;
+            margin-bottom: 1rem;
+        }
+
+        .info-card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .info-card li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+            color: #aaa;
+        }
+
+        .info-card li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: #667eea;
+        }
+
+        .highlight-box {
+            background: rgba(102, 126, 234, 0.1);
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 2rem auto;
+            max-width: 900px;
+        }
+
+        .btn-whatsapp {
+            display: inline-block;
+            background: #25D366;
+            color: white;
+            padding: 0.75rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .btn-whatsapp:hover {
+            background: #128C7E;
+            transform: scale(1.02);
+        }
+
+        .cta-section {
+            text-align: center;
+            margin: 4rem 0;
+        }
+
+        .footer {
+            background: rgba(10, 10, 10, 0.8);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 2rem 1rem;
+            text-align: center;
+            color: #aaa;
+            margin-top: 4rem;
+        }
+
+        .footer p {
+            margin: 0.5rem 0;
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 1rem;
+            }
+
+            .container {
+                padding: 1rem;
+            }
+
+            .hero {
+                padding: 2rem 1rem;
+            }
+
+            .product-showcase {
+                padding: 1.5rem;
+            }
+
+            .pricing-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .info-card,
+            .highlight-box {
+                padding: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .price {
+                font-size: 2rem;
+            }
+
+            .btn,
+            .btn-whatsapp {
+                padding: 0.65rem 1.5rem;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Glowing Lines -->
+    <div class="glow-line glow-line-1"></div>
+    <div class="glow-line glow-line-2"></div>
+    <div class="glow-line glow-line-3"></div>
+
+    <nav class="navbar">
+        <div class="navbar-content">
+            <div class="logo">DONGTUBE</div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="hero">
+            <h1>Sewa Bot WhatsApp Premium</h1>
+            <p>Bot WhatsApp otomatis 24/7 untuk grup Anda. Fast & Reliable dengan fitur premium eksklusif.</p>
+        </div>
+
+        <div class="product-showcase">
+            <div class="product-image">
+                <img src="https://cdn.dongtube.my.id/96b4ff4ebb02.jpg" alt="Dongtube Bot WhatsApp">
+            </div>
+        </div>
+
+        <h2 class="section-title">Paket Sewa</h2>
+        
+        <div class="pricing-grid">
+            <div class="price-card">
+                <div class="duration">7 Hari</div>
+                <div class="price">15K</div>
+                <a href="https://wa.me/6283143961588?text=kak%20saya%20mau%20sewabot%20selama%207%20day%20dengan%20harga%2015k" class="btn">Sewa Sekarang</a>
+            </div>
+
+            <div class="price-card">
+                <div class="duration">30 Hari</div>
+                <div class="price">25K</div>
+                <a href="https://wa.me/6283143961588?text=kak%20saya%20mau%20sewabot%20selama%2030%20day%20dengan%20harga%2025k" class="btn">Sewa Sekarang</a>
+            </div>
+
+            <div class="price-card">
+                <div class="duration">60 Hari</div>
+                <div class="price">50K</div>
+                <a href="https://wa.me/6283143961588?text=kak%20saya%20mau%20sewabot%20selama%2060%20day%20dengan%20harga%2050k" class="btn">Sewa Sekarang</a>
+            </div>
+
+            <div class="price-card">
+                <div class="duration">90 Hari</div>
+                <div class="price">60K</div>
+                <a href="https://wa.me/6283143961588?text=kak%20saya%20mau%20sewabot%20selama%2090%20day%20dengan%20harga%2060k" class="btn">Sewa Sekarang</a>
+            </div>
+
+            <div class="price-card featured">
+                <div class="duration">PERMANEN</div>
+                <div class="price">60K</div>
+                <a href="https://wa.me/6283143961588?text=kak%20saya%20mau%20sewabot%20permanen%20dengan%20harga%2060k" class="btn">Sewa Sekarang</a>
+            </div>
+        </div>
+
+        <div class="info-card">
+            <h3>Apa itu Sewa Bot?</h3>
+            <p>Sewa bot adalah layanan untuk memasukkan bot Dongtube ke dalam grup WhatsApp Anda. Bot akan aktif 24/7 dan siap membantu kebutuhan grup Anda.</p>
+        </div>
+
+        <div class="info-card">
+            <h3>Keuntungan Menyewa Bot</h3>
+            <ul>
+                <li>Akses ke fitur premium eksklusif</li>
+                <li>Bot aktif di grup Anda 24/7</li>
+                <li>Dukungan penuh dari tim kami</li>
+                <li>Bantuan jika ada masalah pada bot</li>
+                <li>Prioritas update fitur terbaru</li>
+            </ul>
+        </div>
+
+        <div class="highlight-box">
+            <h3>Ingin Coba Gratis?</h3>
+            <p>Anda tetap bisa menggunakan bot Dongtube secara GRATIS di:</p>
+            <ul style="list-style: none; padding: 0; margin: 1rem 0;">
+                <li style="padding: 0.5rem 0; color: #aaa;">Chat pribadi dengan bot</li>
+                <li style="padding: 0.5rem 0; color: #aaa;">Grup resmi Dongtube</li>
+            </ul>
+            <div style="text-align: center; margin-top: 1.5rem;">
+                <a href="https://chat.whatsapp.com/ISEjVk9bz5E9JC3aMJfGAe" class="btn-whatsapp">Gabung Grup Dongtube</a>
+            </div>
+        </div>
+
+        <div class="info-card">
+            <h3>Ketentuan Layanan</h3>
+            <ul>
+                <li>Tidak menerima refund</li>
+                <li>Kami menjamin kualitas dan amanah</li>
+                <li>Harga bisa dinegosiasikan, hubungi kami</li>
+                <li>Support penuh selama masa sewa</li>
+            </ul>
+        </div>
+
+        <div class="info-card">
+            <h3>Mengapa Harga Segini?</h3>
+            <p>Biaya sewa digunakan untuk:</p>
+            <ul>
+                <li>Pemeliharaan server agar bot aktif 24/7</li>
+                <li>Update dan pengembangan fitur baru</li>
+                <li>Dukungan teknis untuk pengguna</li>
+            </ul>
+            <p style="margin-top: 1rem;">Kami hanya mendapat sedikit keuntungan jika hanya Anda yang menyewa. Bantu kami dengan mengajak teman dan kerabat Anda! Semakin banyak pengguna, semakin besar kemungkinan kami mengadakan event sewa gratis atau premium gratis.</p>
+        </div>
+
+        <div class="cta-section">
+            <a href="https://wa.me/6283143961588?text=Halo%20kak,%20saya%20mau%20tanya-tanya%20tentang%20bot%20Dongtube" class="btn-whatsapp" style="font-size: 1.1rem; padding: 1rem 2.5rem;">Hubungi Kami</a>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2024 Dongtube Bot</p>
+        <p>Bot WhatsApp Terpercaya</p>
+    </footer>
+
+    <script>
+        // Snow effect
+        function createSnowflake() {
+            const snowflake = document.createElement('div');
+            snowflake.classList.add('snowflake');
+            snowflake.innerHTML = '❄';
+            snowflake.style.left = Math.random() * 100 + '%';
+            snowflake.style.animationDuration = Math.random() * 3 + 5 + 's';
+            snowflake.style.opacity = Math.random();
+            snowflake.style.fontSize = Math.random() * 10 + 10 + 'px';
+            
+            document.body.appendChild(snowflake);
+            
+            setTimeout(() => {
+                snowflake.remove();
+            }, 8000);
+        }
+
+        // Create snowflakes periodically
+        setInterval(createSnowflake, 200);
+    </script>
+</body>
+</html>
